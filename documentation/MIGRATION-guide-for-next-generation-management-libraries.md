@@ -118,7 +118,7 @@ You may change it into a promise based
 const callback = function handle(...args) {
   // callback function body
 };
-getInstanceView(resourceGroupName, cloudServiceName).then(...(args) => handle(...args));
+getInstanceView(resourceGroupName, cloudServiceName).then((args) => handle(args));
 ```
 
 ## List Operations
@@ -232,7 +232,7 @@ The following table compares `LROPoller` and `PollerLike`:
 | return final results                                                       | `pollUntilFinished()`                        | `pollUntilDone()`                                                                                                                                                                                               |
 | poll                                                                       | `poll()`                                     | `poll()`                                                                                                                                                                                                        |
 | access the current state after receiving the response of each poll request | N/A                                          | `onProgress()`                                                                                                                                                                                                  |
-| check whether the operation finished                                       | `isFinished()` / `isFinalStatusAcceptable()` | `isDone()`                                                                                                                                                                                                      |
+| check whether the operation finished                                       | `isFinished()` / `isFinalStatusAcceptable()` | `isDone`                                                                                                                                                                                                        |
 | stop polling                                                               | N/A                                          | `stopPolling()`                                                                                                                                                                                                 |
 | check if the polling stopped                                               | N/A                                          | `isStopped()`                                                                                                                                                                                                   |
 | cancel the operation                                                       | N/A                                          | `cancelOperation()`                                                                                                                                                                                             |
@@ -267,7 +267,7 @@ const poller = await computeClient.dedicatedHosts.beginCreateOrUpdate(
   hostName,
   parameter
 );
-console.log(`The current status? ${poller.getPollState().state"}`)
+console.log(`The current status? ${poller.getPollState().state}`)
 const result = await poller.pollUntilFinished().then((response) => {
   console.log(response);
 });
@@ -283,7 +283,7 @@ const poller = await computeClient.dedicatedHosts.beginCreateOrUpdate(
   parameter
 );
 poller.onProgress((state) => {
-  console.log(`Are we done yet? ${Boolean(state.isCompleted)});
+  console.log(`Are we done yet? ${Boolean(state.isCompleted)}`);
 })
 const result = await poller.pollUntilDone().then((response) => {
   console.log(response);
